@@ -1,0 +1,11 @@
+= form_for(@user) do |f|
+  .form-group
+    = f.label 'Register'
+  .form-group
+    = f.text_field :fullName, :placeholder => 'Full Name', :class => 'form-control'
+  .form-group
+    = f.text_field :username,  :placeholder => 'Username', :class => 'form-control' 
+  .form-group
+    = f.password_field :password_digest,  :placeholder => 'Password', :class => 'form-control' 
+  
+  = f.submit 'Register', :class => 'btn btn-primary'

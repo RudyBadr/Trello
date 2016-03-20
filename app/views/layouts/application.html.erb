@@ -37,7 +37,8 @@
     <![endif]-->
   </head>
   <body>
-
+    
+    
     <div class="navbar navbar-default navbar-static-top">
       <div class="container-fluid">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
@@ -46,11 +47,10 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="#">Trello</a>
-        <div class="navbar-collapse collapse navbar-responsive-collapse">
-          <ul class="nav navbar-nav">
-            <li><%= link_to "Link1", "/path1"  %></li>
-            <li><%= link_to "Link2", "/path2"  %></li>
-            <li><%= link_to "Link3", "/path3"  %></li>
+
+        <div class="navbar-collapse collapse navbar-responsive-collapse ">
+          <ul class="nav navbar-nav right">
+            <%= render 'links' %>
           </ul>
         </div>
       </div>
@@ -58,10 +58,20 @@
 
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-9">
-          <%= bootstrap_flash %>
-          <%= yield %>
+        <div class="col-lg-4">
         </div>
+        <div class="col-lg-4">
+          
+          <%= yield %>
+          <br>
+          <%= bootstrap_flash %>
+           <footer>
+            <p>&copy; Company 2016</p>
+           </footer>
+        </div>
+        <div class="col-lg-4">
+        </div>
+        <!--
         <div class="col-lg-3">
           <div class="well sidebar-nav">
             <h3>Sidebar</h3>
@@ -75,9 +85,7 @@
         </div><!--/span-->
       </div><!--/row-->
 
-      <footer>
-        <p>&copy; Company 2016</p>
-      </footer>
+     
 
     </div> <!-- /container -->
 
