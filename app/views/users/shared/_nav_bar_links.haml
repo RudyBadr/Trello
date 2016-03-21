@@ -10,4 +10,10 @@
   %li
     = link_to "Boards"
   %li
+    .row{style: "text-align:center;vertical-align:middle;height:100%;"}
+      .col-md-2
+        = image_tag current_user.avatar.url,width:"24", height: "24"
+      .col-md-8
+        = link_to "#{current_user.first_name} #{current_user.last_name}", dashboard_profile_url
+  %li
     = link_to "Sign out", destroy_user_session_url, method: :delete
