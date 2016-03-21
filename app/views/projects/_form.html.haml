@@ -1,0 +1,13 @@
+= form_for @project do |f|
+  .form-group
+    = f.label :title
+    %br
+    = f.text_field :title, :class=> "form-control"
+  .form-group
+    = f.label :description
+    %br
+    = f.text_area :description, :class => 'form-control'
+
+  = f.submit :value => "Save", :class => 'btn btn-success'
+%br
+= project_errors!
