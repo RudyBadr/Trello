@@ -1,4 +1,4 @@
-= form_for @project do |f|
+= form_for @project, remote:true do |f|
   .form-group
     = f.label :title
     %br
@@ -10,4 +10,3 @@
 
   = f.submit :value => "Save", :class => 'btn btn-success'
 %br
-= project_errors!
