@@ -38,6 +38,7 @@ group :development, :test do
 end
 
 group :development do
+  #gem 'xray-rails'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
@@ -46,6 +47,11 @@ group :development do
 end
 
 gem 'haml'
+gem 'haml-rails'
 
 gem 'twitter-bootstrap-rails'
+
+gem 'devise'
+
+gem "paperclip", "~> 4.3"
 
