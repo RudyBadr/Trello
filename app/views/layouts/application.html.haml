@@ -40,11 +40,16 @@
             = render "users/shared/nav_bar_links"
     .container-fluid
       .row
-        .col-lg-4
-        .col-lg-4
-          = yield
+        .col-lg-2
+        .col-lg-8
+          #main
+            = yield
           %br/
           = bootstrap_flash
+        .col-lg-2
+      .row
+        .col-lg-4
+        .col-lg-4
           %footer
             %p &#169; Company 2016
         .col-lg-4

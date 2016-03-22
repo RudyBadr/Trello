@@ -1,0 +1,16 @@
+%h1
+  #{@project.title}
+  %small
+    Select members
+%br/
+- @users.each do |user|
+  %div{class: ".col-sm-2 col-md-2"}
+    .thumbnail
+      = image_tag user.avatar.url, wdith: "100%"
+      .caption
+        %h3
+          = "#{user.first_name} #{user.last_name}"
+          %small
+            = "#{user.email}"
+        %p
+          = link_to 'Add', nil,:class => "btn btn-primary", role: "button", :style=>"width:100%"

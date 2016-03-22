@@ -1,14 +1,14 @@
 class ProjectsController < ApplicationController
 	def index
 	end
-	#before_action :authenticate_user!
+	
 	def new
-		@project = Project.new
+		@project = current_user.projects.new
 	end
 
 	def create
-		@project = Project.new(project_params)
-		@project.user_id = current_user.id
+		@project = current_user.projects.new(project_params)
+		@users = User.where("id != ? " ,current_user.id)
 		respond_to do |format|
 			if @project.save
 				format.html{ redirect_to welcome_index}
@@ -18,6 +18,11 @@ class ProjectsController < ApplicationController
 				format.js
 			end
 		end
+	end
+
+	def members
+		#@project = current_user.projects.find(project_id)
+		#@users = User.where('id != #{current_user.id}')
 	end
 
 	private
