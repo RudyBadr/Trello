@@ -2,9 +2,12 @@
   #{@project.title}
   %small
     Select members
+    = link_to 'Add Story', nil,:class => "btn btn-success pull-right", role: "button", remote: :true, method: :post
+
+
 %br/
 - @users.each do |user|
-  %div{class: ".col-sm-2 col-md-2"}
+  %div{class: ".col-sm-2 col-md-2", id: "user_#{user.id}"}
     .thumbnail
       = image_tag user.avatar.url, wdith: "100%"
       .caption
@@ -13,4 +16,4 @@
           %small
             = "#{user.email}"
         %p
-          = link_to 'Add', nil,:class => "btn btn-primary", role: "button", :style=>"width:100%"
+          = link_to 'Add', project_members_url(:project_id => @project.id,:user_id => user.id),:class => "btn btn-primary", role: "button", :style=>"width:100%", remote: :true, method: :post

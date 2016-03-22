@@ -1,0 +1,7 @@
+- if @project_member
+  - if @project_member.errors.any?
+    $('#errors').html('#{project_members_errors!}');
+  - else
+    $("#user_#{@user.id}").fadeOut('slow');
+- else
+  $('#errors').html('#{project_members_self_error!}');

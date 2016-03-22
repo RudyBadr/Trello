@@ -20,10 +20,10 @@ class ProjectsController < ApplicationController
 		end
 	end
 
-	def members
-		#@project = current_user.projects.find(project_id)
-		#@users = User.where('id != #{current_user.id}')
+	def join
+		
 	end
+
 
 	private
 
