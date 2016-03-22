@@ -1,0 +1,24 @@
+%div{:class => "col-lg-3"}
+%div{:class => "col-lg-6"}
+  %h1
+    #{@project.title}
+    %small
+      Create Story
+     
+  = form_for(:story, url: [:project, @story],  html: { multipart: true ,remote:true })   do |f|
+    .form-group
+      = f.label :name
+      %br
+      = f.text_field :name, :class=> "form-control"
+    .form-group
+      = f.label :description
+      %br
+      = f.text_area :description, :class => 'form-control'
+    .form-group
+      = f.label 'Documents'
+      %br
+      = file_field_tag "files[]", type: :file, multiple: true 
+
+    = f.submit :value => "Save", :class => 'btn btn-success'
+  %br
+%div{:class => "col-lg-3"}
