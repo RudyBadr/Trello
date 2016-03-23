@@ -1,2 +1,24 @@
-%h1 Dashboard#index
-%p Find me in app/views/dashboard/index.html.erb
+%h1
+  My
+  %small
+    Projects
+%br/
+%table{:class => "table table-hover"}
+  %thead
+    %tr
+      %th
+        Title
+      %th
+        Description
+      %th
+        Actions
+  %tbody
+    - current_user.projects.each do |project|
+      %tr
+        %td
+          = project.title
+        %td
+          = project.description
+        %td
+          = link_to "Edit", edit_project_url(project)
+          = link_to "Stories", project_stories_url(project)

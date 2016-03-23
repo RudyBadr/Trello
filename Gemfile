@@ -58,3 +58,5 @@ gem "paperclip", "~> 4.3"
 
 gem 'remotipart', '~> 1.2'
 
+gem 'will_paginate', '~> 3.0.6'
+
