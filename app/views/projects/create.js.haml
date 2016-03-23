@@ -1,0 +1,4 @@
+- if @project.errors.any?
+  $('#errors').html('#{project_errors!}');
+- else
+  $('#main').html("#{escape_javascript(render 'members')}");

@@ -1,0 +1,19 @@
+%h1
+  #{@project.title}
+  %small
+    Select members
+    = link_to 'Add Story', new_project_story_url(:project_id => @project.id),:class => "btn btn-success pull-right", role: "button", remote: :true
+
+
+%br/
+- @users.each do |user|
+  %div{class: ".col-sm-2 col-md-2", id: "user_#{user.id}"}
+    .thumbnail
+      = image_tag user.avatar.url, wdith: "100%"
+      .caption
+        %h3
+          = "#{user.first_name} #{user.last_name}"
+          %small
+            = "#{user.email}"
+        %p
+          = link_to 'Add', project_members_url(:project_id => @project.id,:user_id => user.id),:class => "btn btn-primary", role: "button", :style=>"width:100%", remote: :true, method: :post

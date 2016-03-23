@@ -35,6 +35,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   # Call 'debugger' anywhere in the code to stop execution and get a debugger console
   gem 'debugger'
+  gem 'pry'
 end
 
 group :development do
@@ -54,4 +55,6 @@ gem 'twitter-bootstrap-rails'
 gem 'devise'
 
 gem "paperclip", "~> 4.3"
+
+gem 'remotipart', '~> 1.2'
 

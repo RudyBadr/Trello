@@ -4,6 +4,15 @@ Rails.application.routes.draw do
   get 'dashboard/index'
   get 'dashboard/profile'
 
+  post 'projects/join', as: 'join_project'
+  resources :projects do
+    resources :members
+    resources :stories do
+      resources :story_files
+      resources :tasks
+    end
+  end
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

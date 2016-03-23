@@ -11,7 +11,62 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160321094345) do
+ActiveRecord::Schema.define(version: 20160322162647) do
+
+  create_table "project_members", force: :cascade do |t|
+    t.integer  "project_id", limit: 4
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "project_members", ["project_id"], name: "index_project_members_on_project_id", using: :btree
+  add_index "project_members", ["user_id"], name: "index_project_members_on_user_id", using: :btree
+
+  create_table "projects", force: :cascade do |t|
+    t.string   "title",       limit: 255
+    t.text     "description", limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "user_id",     limit: 4
+  end
+
+  add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree
+
+  create_table "stories", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.text     "description", limit: 65535
+    t.integer  "project_id",  limit: 4
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.string   "state",       limit: 255,   default: "open"
+  end
+
+  add_index "stories", ["project_id"], name: "index_stories_on_project_id", using: :btree
+
+  create_table "story_files", force: :cascade do |t|
+    t.string   "file",              limit: 255
+    t.integer  "story_id",          limit: 4
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.string   "file_file_name",    limit: 255
+    t.string   "file_content_type", limit: 255
+    t.integer  "file_file_size",    limit: 4
+    t.datetime "file_updated_at"
+  end
+
+  add_index "story_files", ["story_id"], name: "index_story_files_on_story_id", using: :btree
+
+  create_table "tasks", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.text     "description", limit: 65535
+    t.string   "state",       limit: 255,   default: "not done"
+    t.integer  "story_id",    limit: 4
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+  end
+
+  add_index "tasks", ["story_id"], name: "index_tasks_on_story_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name",             limit: 255
@@ -38,4 +93,9 @@ ActiveRecord::Schema.define(version: 20160321094345) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "project_members", "projects"
+  add_foreign_key "project_members", "users"
+  add_foreign_key "stories", "projects"
+  add_foreign_key "story_files", "stories"
+  add_foreign_key "tasks", "stories"
 end

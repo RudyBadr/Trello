@@ -13,3 +13,5 @@
  *= require_tree .
  *= require_self
  */
+
+.thumbnail img{ width: 100%; display: block;}
