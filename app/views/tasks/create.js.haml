@@ -1,3 +1,5 @@
+$('#success').html('');
+$('#errors').html('');
 - if @task.errors.any?
   $('#errors').html('#{task_errors!}');
 - else

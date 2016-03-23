@@ -3,5 +3,6 @@
     $('#errors').html('#{project_members_errors!}');
   - else
     $("#user_#{@user.id}").fadeOut('slow');
+    $("#members").append('#{add_project_member!}');
 - else
   $('#errors').html('#{project_members_self_error!}');

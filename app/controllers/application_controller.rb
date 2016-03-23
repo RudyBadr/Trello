@@ -7,13 +7,13 @@ class ApplicationController < ActionController::Base
   
   protected
 
-    def configure_permitted_parameters
-		devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:first_name, :last_name, :avatar, :password, :password_confirmation, :email) }
-    end
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:first_name, :last_name, :avatar, :password, :password_confirmation, :email) }
+  end
 	def after_sign_up_path_for(resource)
 		welcome_test_path
 	end
 	def after_sign_in_path_for(resource_or_scope)
-		dashboard_index_url
+		dashboard_url
 	end
 end

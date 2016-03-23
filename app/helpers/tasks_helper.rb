@@ -22,4 +22,10 @@ module TasksHelper
 			end
 		end
 	end
+	def task_success!
+		content_tag(:div,:class => "alert alert-success") do
+			concat content_tag(:button, "x", :type =>"button", :class =>"close", "data-dismiss" => "alert")
+			concat content_tag(:h4,"Story has been updated.") 
+		end
+	end
 end

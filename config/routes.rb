@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   devise_for :users
-  get 'dashboard/index'
+  get 'dashboard/index', as: 'dashboard'
   get 'dashboard/profile'
 
   post 'projects/join', as: 'join_project'

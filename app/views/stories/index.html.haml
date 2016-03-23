@@ -1,0 +1,33 @@
+%h1
+  = @project.title
+  %small
+    Stories
+    = link_to 'Add Story', new_project_story_url(:project_id => @project.id),:class => "btn btn-success pull-right", role: "button", remote: :true
+%br/
+%table{:class => "table table-hover"}
+  %thead
+    %tr
+      %th
+        Title
+      %th
+        Description
+      %th
+        Actions
+  %tfoot
+    %tr
+      %td{colspan:"3"}
+        %center
+          = will_paginate @stories
+  %tbody
+    - @stories.each do |story|
+      %tr
+        %td
+          = story.name
+        %td
+          = story.description
+        %td
+          = link_to "Edit", edit_project_story_url(@project, story)
+          |
+          = link_to "Tasks", project_story_tasks_url(@project, story)
+          |
+          = link_to "Documents", project_story_story_files_url(@project,story)

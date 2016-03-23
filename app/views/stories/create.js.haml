@@ -1,6 +1,8 @@
+$('#success').html('');
+$('#errors').html('');
 - if @story.errors.any?
   $('#errors').html('#{story_errors!}');
 - else
-  $("file").val('');
+  $("#files_").val('');
   $('form').find("input[type=text], textarea").val("");
   $('#table').html('#{stories!}');

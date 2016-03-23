@@ -1,0 +1,7 @@
+$('#success').html('');
+$('#errors').html('');
+- if @project.errors.any?
+  $('#errors').html('#{project_errors!}');
+- else
+  $('#success').html('#{project_success!}');
+  

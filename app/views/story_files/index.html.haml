@@ -1,0 +1,24 @@
+%h1
+  = @story.name
+  %small
+    Documents
+%br/
+%table{:class => "table table-hover"}
+  %thead
+    %tr
+      %th
+        Title
+      %th
+        Actions
+  %tfoot
+    %tr
+      %td{colspan:"2"}
+        %center
+          = will_paginate @files
+  %tbody
+    - @files.each do |file|
+      %tr
+        %td
+          = file.file_file_name
+        %td
+          = link_to "Download", file.file.url, target:"_blank"

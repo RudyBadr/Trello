@@ -1,0 +1,29 @@
+%h1
+  = @story.name
+  %small
+    Tasks
+    = link_to "Add Task",new_project_story_task_url(:project_id=>@story.project.id, :story_id => @story.id),remote: true, class:"btn btn-success pull-right"
+%br/
+%table{:class => "table table-hover"}
+  %thead
+    %tr
+      %th
+        Title
+      %th
+        Description
+      %th
+        Actions
+  %tfoot
+    %tr
+      %td{colspan:"3"}
+        %center
+          = will_paginate @tasks
+  %tbody
+    - @tasks.each do |task|
+      %tr
+        %td
+          = task.name
+        %td
+          = task.description
+        %td
+          = link_to "Edit", edit_project_story_task_url(@story.project_id, @story, task)

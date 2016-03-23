@@ -11,4 +11,11 @@ module ProjectsHelper
 			end
 		end
 	end
+	def project_success!
+		content_tag(:div,:class => "alert alert-success") do
+			concat content_tag(:button, "x", :type =>"button", :class =>"close", "data-dismiss" => "alert")
+			concat content_tag(:h4,"Project has been updated.") 
+			#concat content_tag(:ul,@project.errors.full_messages.map { |msg| content_tag(:li, msg) }.join('').html_safe)
+		end
+	end
 end

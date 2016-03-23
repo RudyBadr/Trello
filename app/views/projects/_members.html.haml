@@ -7,12 +7,13 @@
 
 %br/
 - @users.each do |user|
-  %div{class: ".col-sm-2 col-md-2", id: "user_#{user.id}"}
+  %div{class: ".col-sm-3 col-md-3", id: "user_#{user.id}"}
     .thumbnail
       = image_tag user.avatar.url, wdith: "100%"
       .caption
         %h3
           = "#{user.first_name} #{user.last_name}"
+          %br
           %small
             = "#{user.email}"
         %p

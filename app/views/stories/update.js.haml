@@ -1,0 +1,7 @@
+$('#success').html('');
+$('#errors').html('');
+- if @story.errors.any?
+  $('#errors').html('#{story_errors!}');
+- else
+  $("#files_").val('');
+  $('#success').html('#{story_success!}');

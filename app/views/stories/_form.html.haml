@@ -1,11 +1,10 @@
 %div{:class => "col-lg-3"}
 %div{:class => "col-lg-6"}
   %h1
-    #{@project.title}
     %small
-      Create Story
+      Story
      
-  = form_for(:story, url: [:project, @story],  html: { multipart: true ,remote:true })   do |f|
+  = form_for([@project, @story],  html: { multipart: true ,remote:true })   do |f|
     .form-group
       = f.label :name
       %br

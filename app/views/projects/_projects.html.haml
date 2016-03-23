@@ -1,0 +1,32 @@
+%h1
+  My
+  %small
+    Projects
+%br/
+%table{:class => "table table-hover"}
+  %thead
+    %tr
+      %th
+        Title
+      %th
+        Description
+      %th
+        Actions
+  %tfoot
+    %tr
+      %td{colspan:"3"}
+        %center
+          = will_paginate @projects
+  %tbody
+    - @projects.each do |project|
+      %tr
+        %td
+          = project.title
+        %td
+          = project.description
+        %td
+          = link_to "Edit", edit_project_url(project)
+          |
+          = link_to "Stories", project_stories_url(project)
+          |
+          = link_to "Members", project_members_url(project)

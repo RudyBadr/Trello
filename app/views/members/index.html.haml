@@ -1,0 +1,61 @@
+%h1
+  #{@project.title}
+  %small
+    Currently in
+    = link_to "Add Members", project_members_url(@project), :class=>"pull-right", :data => {:toggle=>"modal", :target=>"#myModal"}, remote: true, class:"btn btn-success pull-right"
+%br/
+#members
+  - if @project.project_members.count > 0
+    - @project.project_members.each do |member|
+      %div{class: ".col-sm-3 col-md-3", id: "user_#{member.user.id}"}
+        .thumbnail
+          = image_tag member.user.avatar.url, wdith: "100%"
+          .caption
+            %h3
+              = "#{member.user.first_name} #{member.user.last_name}"
+              %br/
+              %small
+                = "#{member.user.email}"
+            %p
+              = link_to 'Remove', project_member_url(@project.id,member.id),:class => "btn btn-danger", role: "button", :style=>"width:100%", remote: :true, method: :delete
+            
+  - else
+    %center
+      %p#message
+        No Members yet.
+
+%div{:class=>"modal fade",id:"myModal",tabindex:"-1", role:"dialog"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button{type:"button",class:"close","data-dismiss"=>"modal","aria-label"=>"Close"}
+          %span{"aria-hidden"=>"true"}
+            &times;
+        %h4.modal-title
+          Add Members
+      .modal-body
+        - if @users.count > 0
+          - @users.each do |user|
+            .row{id: "user_#{user.id}"}
+              .col-lg-2
+                = image_tag user.avatar.url, width:"100", height: "100", style:"padding:5px;"
+              .col-lg-8
+                %h4
+                  = user.first_name
+                  = user.last_name
+                %br/
+                = user.email
+
+              .col-lg-2
+                = link_to 'Add', project_members_url(:project_id => @project.id,:user_id => user.id),:class => "btn btn-primary", role: "button",:id=>"add-member", :style=>"width:100%", remote: :true, method: :post
+        - else
+          %p
+            No Users found.
+
+
+          
+          %br/
+
+      .modal-footer
+        %button{type:"button",class:"btn btn-default","data-dismiss"=>"modal"}
+          Close
