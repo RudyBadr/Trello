@@ -1,7 +1,8 @@
 class StoriesController < ApplicationController
 	before_action :set_story, only: [:edit,:update]
+	before_action :set_project!
+
 	def index
-		@project = current_user.projects.find(params[:project_id])
 		@stories = @project.stories.paginate(:page => params[:page], :per_page => 10)
 	end
 	def new
@@ -9,6 +10,27 @@ class StoriesController < ApplicationController
 		if @project
 			@story = @project.stories.new
 		else
+		end
+	end
+	def assigned_members
+		@story = current_user.projects.find(params[:project_id]).stories.find(params[:story_id])
+		@members = current_user.projects.find(params[:project_id]).project_members.paginate(:page => params[:page], :per_page => 10)
+	end
+	def assign_member
+		@member = current_user.projects.find(params[:project_id]).stories.find(params[:story_id]).member_stories.new
+		@member.project_member_id = params[:user_id]
+		if @member.save
+			redirect_to project_story_assigned_members_url(params[:project_id],params[:story_id])
+		else
+			redirect_to project_story_assigned_members_url(params[:project_id],params[:story_id], notice: 'Failed to assing user')
+		end
+	end
+	def unassign_member
+		@member = current_user.projects.find(params[:project_id]).stories.find(params[:story_id]).member_stories.find_by(:project_member_id => params[:user_id])
+		if @member.destroy
+			redirect_to project_story_assigned_members_url(params[:project_id],params[:story_id])
+		else
+			redirect_to project_story_unassigned_members_url(params[:project_id],params[:story_id], notice: 'Failed to unassing user')
 		end
 	end
 	def show

@@ -1,12 +1,13 @@
 class TasksController < ApplicationController
 	before_action :set_task, only: [:edit,:update]
+	before_action :verify_user_assinged_to_story_or_is_project_creator!
+	before_action :set_project!
+	@assigned_user = false
 	def index
-		@story = current_user.projects.find(params[:project_id]).stories.find(params[:story_id])
+		@story = @project.stories.find(params[:story_id])
 		@tasks = @story.tasks.paginate(:page => params[:page], :per_page => 10)
 	end
 	def new
-		@project = current_user.projects.find(params[:project_id])
-
 		if @project
 			@story = @project.stories.find(params[:story_id])
 			if @story
@@ -30,7 +31,7 @@ class TasksController < ApplicationController
 		end
 	end
 	def create
-		@story = current_user.projects.find(params[:project_id]).stories.find(params[:story_id])
+		@story = @project.stories.find(params[:story_id])
 		if @story
 			@task = @story.tasks.new(task_params)
 			respond_to do |format|
@@ -47,10 +48,26 @@ class TasksController < ApplicationController
 	private
 
 	def set_task
-		@task = current_user.projects.find(params[:project_id]).stories.find(params[:story_id]).tasks.find(params[:id])
+		@task = @project.stories.find(params[:story_id]).tasks.find(params[:id])
 	end
 
 	def task_params
 		params.require(:task).permit(:name,:description)
 	end
+	def verify_user_assinged_to_story_or_is_project_creator!
+		project = current_user.projects.where("id = ?",params[:project_id])
+		if project.count == 0
+			project = Project.find(params[:project_id])
+			if project
+				story = project.stories.find(params[:story_id])
+				project_member = project.project_members.find_by(:user_id => current_user)
+				if story.member_stories.find_by(:project_member_id => project_member.id) == nil
+					redirect_to projects_url
+				else
+					@assigned_user = true
+				end
+			end
+		end
+	end
+	
 end

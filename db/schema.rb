@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160322162647) do
+ActiveRecord::Schema.define(version: 20160323164832) do
+
+  create_table "member_stories", force: :cascade do |t|
+    t.integer  "project_member_id", limit: 4
+    t.integer  "story_id",          limit: 4
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "member_stories", ["project_member_id"], name: "index_member_stories_on_project_member_id", using: :btree
+  add_index "member_stories", ["story_id"], name: "index_member_stories_on_story_id", using: :btree
 
   create_table "project_members", force: :cascade do |t|
     t.integer  "project_id", limit: 4
@@ -93,6 +103,8 @@ ActiveRecord::Schema.define(version: 20160322162647) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "member_stories", "project_members"
+  add_foreign_key "member_stories", "stories"
   add_foreign_key "project_members", "projects"
   add_foreign_key "project_members", "users"
   add_foreign_key "stories", "projects"

@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
 	before_action :set_project, only: [:edit, :update]
+	
 	def index
 		@projects = current_user.projects.paginate(:page => params[:page], :per_page => 10)
 	end

@@ -1,0 +1,33 @@
+%h1
+  = @story.name
+  %small
+    Stories
+%br/
+%table{:class => "table table-hover"}
+  %thead
+    %tr
+      %th
+        Avatar
+      %th
+        Name
+      %th
+        Actions
+  %tfoot
+    %tr
+      %td{colspan:"3"}
+        %center
+          = will_paginate @members
+  %tbody
+    - @members.each do |member|
+      %tr
+        %td
+          = image_tag member.user.avatar.url, width:"100", heght: "100"
+          
+        %td
+          = member.user.first_name
+          = member.user.last_name 
+        %td
+          - if member.member_stories.find_by(story_id: @story) != nil
+            = link_to "unassign", project_story_unassign_member_url(@story.project,@story,:user_id => member.id) , method: :delete
+          - else
+            = link_to "assign", project_story_assign_member_url(@story.project,@story,:user_id => member.id), method: :post
