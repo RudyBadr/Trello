@@ -12,15 +12,13 @@ module StoriesHelper
 		end
 	end
 	def stories!
-		content_tag(:table) do
-			content_tag(:thead) do
-				concat content_tag(:th,"Name")
-				concat content_tag(:th,"Description")
-				concat content_tag(:th,"Action")
-			end
-		    content_tag(:tbody) do
+		counter = 0;
+		content_tag(:table,:class=>"table") do
+			 content_tag(:thead,content_tag(:tr,content_tag(:th,"#")+content_tag(:th,"Name")+content_tag(:th,"Description")+content_tag(:th,"Action")))+
+		     content_tag(:tbody) do
+		     	
 				@project.stories.each do |story|
-					concat content_tag(:tr,content_tag(:td,story.name).html_safe+content_tag(:td,story.description).html_safe+content_tag(:td,link_to("Add Task",new_project_story_task_url(:project_id=>@project.id, :story_id => @story.id),remote: true)))
+					concat content_tag(:tr,content_tag(:th,counter= counter+1,:scope=>"row")+content_tag(:td,story.name).html_safe+content_tag(:td,story.description).html_safe+content_tag(:td,link_to("Add Task",new_project_story_task_url(:project_id=>@project.id, :story_id => @story.id),remote: true)))
 				end
 			end
 		end

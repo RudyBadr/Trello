@@ -14,7 +14,7 @@ class TasksController < ApplicationController
 	def create
 		@story = current_user.projects.find(params[:project_id]).stories.find(params[:story_id])
 		if @story
-			@task = @story.task.new(tasks_params)
+			@task = @story.tasks.new(tasks_params)
 			respond_to do |format|
 				if @task.save
 					format.html
@@ -27,6 +27,6 @@ class TasksController < ApplicationController
 		end
 	end
 	def tasks_params
-		params.require(:project).permit(:name,:description)
+		params.require(:task).permit(:name,:description)
 	end
 end
