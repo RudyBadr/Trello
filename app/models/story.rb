@@ -1,4 +1,7 @@
 class Story < ActiveRecord::Base
+  scope :open, -> {where(state:'open')}
+  scope :doing, -> {where(state:'doing')}
+  scope :done, -> {where(state:'done')}
   belongs_to :project
   has_many :story_files
   has_many :tasks

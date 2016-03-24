@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :stories do
       resources :story_files
       resources :tasks
+      post 'state'
       get 'assigned_members'
       post 'assign_member'
       delete 'unassign_member'

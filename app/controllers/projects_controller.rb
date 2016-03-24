@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
 	before_action :set_project, only: [:edit, :update]
 	before_action :has_project_access!, only: [:view]
+	before_action :set_project!, only: [:view]
 	def index
 		@projects = current_user.projects.paginate(:page => params[:page], :per_page => 10)
 		@other_projects = current_user.project_members
@@ -45,7 +46,7 @@ class ProjectsController < ApplicationController
 		
 	end
 	def view
-
+	
 	end
 
 	private

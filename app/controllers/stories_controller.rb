@@ -73,6 +73,10 @@ class StoriesController < ApplicationController
 			end
 		end
 	end
+	def state
+		@story = @project.stories.find(params[:story_id])
+		@story.update(:state=>params[:state])
+	end
 	private
 	def set_story
 		@project = current_user.projects.find(params[:project_id])

@@ -1,0 +1,72 @@
+#project{:value=>"#{@project.id}"}
+
+#open.col-lg-4
+  .column
+    %h4
+      Open
+    .docker
+      - @project.stories.open.each do |story|
+        .docker-item
+          %input{:type=>"hidden", :value=>"#{story.id}"}
+          %div.story-title
+            %h5
+              %small
+              = story.id 
+              |
+              = story.name
+          %div
+            %p
+              = story.description
+      %div
+#doing.col-lg-4{:style=>"height:900px;"}
+  .column
+    %h4
+      Doing
+    .docker
+      - @project.stories.doing.each do |story|
+        .docker-item
+          %input{:type=>"hidden", :value=>"#{story.id}"}
+          %div.story-title
+            %h5
+              %small
+              = story.id 
+              |
+              = story.name
+          %div
+            %p
+              = story.description
+      %div
+#done.col-lg-4
+  .column
+    %h4
+      Done
+    .docker
+      - @project.stories.done.each do |story|
+        .docker-item
+          %input{:type=>"hidden", :value=>"#{story.id}"}
+          %div.story-title
+            %h5
+              %small
+              = story.id 
+              |
+              = story.name
+          %div
+            %p
+              = story.description
+      %div
+
+
+%div{:class=>"modal fade",id:"storyModal",tabindex:"-1", role:"dialog"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button{type:"button",class:"close","data-dismiss"=>"modal","aria-label"=>"Close"}
+          %span{"aria-hidden"=>"true"}
+            &times;
+        %h4.modal-title
+          User
+      .modal-body
+       
+      .modal-footer
+        %button{type:"button",class:"btn btn-default","data-dismiss"=>"modal"}
+          Close
