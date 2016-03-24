@@ -2,23 +2,37 @@
   #{@project.title}
   %small
     Currently in
-    = link_to "Add Members", project_members_url(@project), :class=>"pull-right", :data => {:toggle=>"modal", :target=>"#myModal"}, remote: true, class:"btn btn-success pull-right"
+    - if @project.user.id == current_user.id
+      = link_to "Add Members", project_members_url(@project), :class=>"pull-right", :data => {:toggle=>"modal", :target=>"#myModal"}, remote: true, class:"btn btn-success pull-right"
 %br/
 #members
   - if @project.project_members.count > 0
     - @project.project_members.each do |member|
-      %div{class: ".col-sm-3 col-md-3", id: "user_#{member.user.id}"}
-        .thumbnail
-          = image_tag member.user.avatar.url, wdith: "100%"
-          .caption
-            %h3
-              = "#{member.user.first_name} #{member.user.last_name}"
-              %br/
-              %small
-                = "#{member.user.email}"
-            %p
-              = link_to 'Remove', project_member_url(@project.id,member.id),:class => "btn btn-danger", role: "button", :style=>"width:100%", remote: :true, method: :delete
-            
+      - if member.user.id != current_user.id
+        %div{class: ".col-sm-3 col-md-3", id: "user_#{member.user.id}"}
+          .thumbnail
+            = image_tag member.user.avatar.url, wdith: "100%"
+            .caption
+              %h3
+                = "#{member.user.first_name} #{member.user.last_name}"
+                %br/
+                %small
+                  = "#{member.user.email}"
+              %p
+                - if @project.user.id == current_user.id
+                  = link_to 'Remove', project_member_url(@project.id,member.id),:class => "btn btn-danger", role: "button", :style=>"width:100%", remote: :true, method: :delete
+      - else
+        %div{class: ".col-sm-3 col-md-3", id: "user_#{member.user.id}"}
+          .thumbnail
+            = image_tag @project.user.avatar.url, wdith: "100%"
+            .caption
+              %h3
+                = "#{@project.user.first_name} #{@project.user.last_name}"
+                %br/
+                %small
+                  = "#{@project.user.email}"
+              %p
+                = link_to 'Owner', "#",:class => "btn btn-success", role: "button", :style=>"width:100%"
   - else
     %center
       %p#message

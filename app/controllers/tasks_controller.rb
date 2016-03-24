@@ -2,7 +2,6 @@ class TasksController < ApplicationController
 	before_action :set_task, only: [:edit,:update]
 	before_action :verify_user_assinged_to_story_or_is_project_creator!
 	before_action :set_project!
-	@assigned_user = false
 	def index
 		@story = @project.stories.find(params[:story_id])
 		@tasks = @story.tasks.paginate(:page => params[:page], :per_page => 10)
@@ -62,7 +61,7 @@ class TasksController < ApplicationController
 				story = project.stories.find(params[:story_id])
 				project_member = project.project_members.find_by(:user_id => current_user)
 				if story.member_stories.find_by(:project_member_id => project_member.id) == nil
-					redirect_to projects_url
+					redirect_to project_stories_url(project)
 				else
 					@assigned_user = true
 				end

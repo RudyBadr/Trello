@@ -1,6 +1,6 @@
 class MembersController < ApplicationController
+	before_action :set_project!
 	def index
-		@project = current_user.projects.find(params[:project_id])
 		if @project.project_members.count > 0
 			@users = User.where("id not in (?) and id != ?",@project.project_members.map(&:user_id), current_user.id)
 		else

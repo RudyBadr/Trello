@@ -21,7 +21,7 @@
     - @projects.each do |project|
       %tr
         %td
-          = project.title
+          = link_to "#{project.title}", project_view_url(project)
         %td
           = project.description
         %td

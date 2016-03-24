@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   post 'projects/join', as: 'join_project'
   resources :projects do
+    get 'view'
     resources :members
     resources :stories do
       resources :story_files

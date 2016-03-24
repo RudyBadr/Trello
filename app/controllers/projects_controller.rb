@@ -1,8 +1,9 @@
 class ProjectsController < ApplicationController
 	before_action :set_project, only: [:edit, :update]
-	
+	before_action :has_project_access!, only: [:view]
 	def index
 		@projects = current_user.projects.paginate(:page => params[:page], :per_page => 10)
+		@other_projects = current_user.project_members
 	end
 
 	def show
@@ -43,7 +44,9 @@ class ProjectsController < ApplicationController
 	def join
 		
 	end
+	def view
 
+	end
 
 	private
 	def set_project
@@ -51,5 +54,15 @@ class ProjectsController < ApplicationController
 	end
 	def project_params
 		params.require(:project).permit(:title,:description)
+	end
+	def has_project_access!
+		begin
+			current_user.projects.find(params[:project_id])
+		rescue
+			project = Project.find(params[:project_id]).project_members.where('user_id = ?' ,current_user.id)
+			if project.count == 0
+				redirect_to projects_url
+			end
+		end
 	end
 end
