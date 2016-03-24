@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
 	before_action :set_task, only: [:edit,:update]
-	before_action :verify_user_assinged_to_story_or_is_project_creator!
+	#before_action :verify_user_assinged_to_story_or_is_project_creator!
 	before_action :set_project!
 	def index
 		@story = @project.stories.find(params[:story_id])
@@ -31,6 +31,11 @@ class TasksController < ApplicationController
 	end
 	def create
 		@story = @project.stories.find(params[:story_id])
+		if !params[:render_normal].nil?
+			@render_default = false
+		else
+			@render_default = true
+		end
 		if @story
 			@task = @story.tasks.new(task_params)
 			respond_to do |format|
@@ -43,6 +48,12 @@ class TasksController < ApplicationController
 				end
 			end
 		end
+	end
+
+	def state
+		@story = @project.stories.find(params[:story_id])
+		@task = @story.tasks.find(params[:task_id])
+		@task.update(:state=>params[:state])
 	end
 	private
 

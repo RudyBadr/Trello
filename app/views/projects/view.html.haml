@@ -6,17 +6,18 @@
       Open
     .docker
       - @project.stories.open.each do |story|
-        .docker-item
-          %input{:type=>"hidden", :value=>"#{story.id}"}
-          %div.story-title
-            %h5
-              %small
-              = story.id 
-              |
-              = story.name
-          %div
-            %p
-              = story.description
+        - if story.member_stories.find_by(:project_member_id => @project.project_members.find_by(:user_id=> current_user.id)) != nil
+          .docker-item
+            %input{:type=>"hidden", :value=>"#{story.id}"}
+            %div.story-title
+              %h5
+                %small
+                = story.id 
+                |
+                = story.name
+            %div
+              %p
+                = story.description
       %div
 #doing.col-lg-4{:style=>"height:900px;"}
   .column
@@ -66,7 +67,24 @@
         %h4.modal-title
           User
       .modal-body
-       
+        
+        .row
+          .col-lg-2
+          .col-lg-8
+            .form-group
+            %input{:type=>"hidden", :placeholder=>"Task name",:class=> "form-control",:id=>"project_id", :value=>""}
+              %input{:type=>"hidden", :placeholder=>"Task name",:class=> "form-control",:id=>"story_id", :value=>""}
+              %input{:type=>"text", :placeholder=>"Task name",:class=> "form-control",:id=>"task_name"}
+            %br/
+            .form-group
+              %input{:type=>"text",:placeholder=>"Task description", :class=> "form-control",:id=>"task_description"}
+            %br/
+            %input{:type=>"button",:value=>"Add",:class=>"btn btn-success", :onclick=>"submit_task()"}
+          .col-lg-2
+        %br/
+        %h4
+          Tasks
+        .content
       .modal-footer
         %button{type:"button",class:"btn btn-default","data-dismiss"=>"modal"}
           Close

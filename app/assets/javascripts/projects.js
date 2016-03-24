@@ -1,3 +1,4 @@
+
 $(document).on('ready page:load',function(event){
     $('.docker').sortable({ 
         placeholder: "ui-sortable-placeholder" ,
@@ -9,10 +10,7 @@ $(document).on('ready page:load',function(event){
         },
         stop: function(e,ui){
             var data = {state: $(this).parent().parent().attr('id')}
-            send_ajax("/projects/"+$('#project').attr('value')+"/stories/"+$(ui.item).find('input').val()+"/state",data);
-        },
-        over: function(e,ui){
-
+            send_ajax("/projects/"+$('#project').attr('value')+"/stories/"+$(ui.item).find('input').val()+"/state","POST",data);
         }
     }).disableSelection();
     $('.docker-item').draggable({
@@ -24,14 +22,22 @@ $(document).on('ready page:load',function(event){
         
     });
     $('.docker-item').click(function(){
+        send_ajax("/projects/"+$('#project').attr('value')+"/stories/"+$(this).find('input').val()+".js","GET",{});
         $('#storyModal').modal('show');
+        $('#story_id').val($(this).find('input').val());
+        $('#project_id').val($('#project').attr('value'));
         $('.modal-title').html($(this).find('.story-title').text());
+        
     });
-
-    function send_ajax(url,data){
+    function submit_task(){
+    //alert('dasfas');
+        var data = {story_id: $("#story_id").val(),name: $("#task_name").text(), description: $("task_description").text(),render_normal:"false"};
+        send_ajax("/projects/"+$("#project_id").val()+"/stories/"+$("#story_id").val()+"/tasks.js","POST",data);
+    }
+    function send_ajax(url,method,data){
         $.ajax({
             url: url,
-            type: 'POST',
+            type: method,
             data: data,
         });
     }

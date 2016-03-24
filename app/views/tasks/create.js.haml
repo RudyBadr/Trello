@@ -1,7 +1,10 @@
-$('#success').html('');
-$('#errors').html('');
-- if @task.errors.any?
-  $('#errors').html('#{task_errors!}');
-- else
-  $('form').find("input[type=text], textarea").val("");
-  $('#table').html('#{tasks!}');
+- if @render_default == false
+  $('.content').html('#{story_details!}');
+-else
+  $('#success').html('');
+  $('#errors').html('');
+  - if @task.errors.any?
+    $('#errors').html('#{task_errors!}');
+  - else
+    $('form').find("input[type=text], textarea").val("");
+    $('#table').html('#{tasks!}');

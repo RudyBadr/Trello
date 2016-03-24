@@ -8,4 +8,8 @@ class Story < ActiveRecord::Base
   has_many :member_stories
   validates :name, presence: true
   validates_uniqueness_of :name, scope: :project_id
+
+  accepts_nested_attributes_for :tasks,
+    :allow_destroy => true,
+    :reject_if     => :all_blank
 end

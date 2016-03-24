@@ -30,4 +30,5 @@ module StoriesHelper
 			#concat content_tag(:ul,@project.errors.full_messages.map { |msg| content_tag(:li, msg) }.join('').html_safe)
 		end
 	end
+	
 end

@@ -1,6 +1,7 @@
 class StoriesController < ApplicationController
-	before_action :set_story, only: [:edit,:update]
 	before_action :set_project!
+	before_action :set_story, only: [:edit,:update]
+	
 
 	def index
 		@stories = @project.stories.paginate(:page => params[:page], :per_page => 10)
@@ -34,6 +35,11 @@ class StoriesController < ApplicationController
 		end
 	end
 	def show
+		@story = @project.stories.find(params[:id])
+		respond_to do |format|
+			format.html
+			format.js
+		end
 	end
 	def edit
 	end

@@ -10,7 +10,9 @@ Rails.application.routes.draw do
     resources :members
     resources :stories do
       resources :story_files
-      resources :tasks
+      resources :tasks do
+        post 'state'
+      end
       post 'state'
       get 'assigned_members'
       post 'assign_member'
